@@ -34,4 +34,10 @@ public class ProduitMinibar {
     public void setPrix(float prix) {
         this.prix = prix;
     }
+
+    public void afficher(){
+        System.out.println("ID_Produit : "+getId_produit());
+        System.out.println("Nom du Produit : "+getNomProduit());
+        System.out.println("Prix : "+getPrix());
+    }
 }

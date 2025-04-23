@@ -37,4 +37,14 @@ public class Chambre {
     public void addMenage(Menage menage) {
         this.menages.add(menage);
     }
+
+    public float getPrix(){
+        switch (categorie) {
+            case SIMPLE : return 100 ;
+            case SUITE_NORMALE: return 200 ;
+            case SUITE_PRESIDENTIELLE: return 300;
+            default: return 100;
+        }
+
+    }
 }

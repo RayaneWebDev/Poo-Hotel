@@ -4,7 +4,6 @@ import java.util.Date;
 public class Reservation {
     private int ID_reservation;
     private int nbr_nuits;
-    private float prix;
     private Date date_debut;
     private Date date_fin;
     private Chambre chambre;
@@ -14,7 +13,6 @@ public class Reservation {
     public Reservation(int ID_reservation, int nbr_nuits, float prix, Date date_debut, Date date_fin, Chambre chambre, boolean status) {
         this.ID_reservation = ID_reservation;
         this.nbr_nuits = nbr_nuits;
-        this.prix = prix;
         this.date_debut = date_debut;
         this.date_fin = date_fin;
         this.chambre = chambre;
@@ -34,14 +32,6 @@ public class Reservation {
 
     public void setNbr_nuits(int nbr_nuits) {
         this.nbr_nuits = nbr_nuits;
-    }
-
-    public float getPrix() {
-        return prix;
-    }
-
-    public void setPrix(float prix) {
-        this.prix = prix;
     }
 
     public Date getDate_debut() {
@@ -79,6 +69,12 @@ public class Reservation {
         this.chambre = chambre;
     }
 
+    public float getPrix(){
+        return chambre.getPrix();
+    }
+    public void afficherReservation() {
+        System.out.println("ID: " + ID_reservation + " | Nuits: " + nbr_nuits + " | Prix chambre: " + chambre.getPrix());
+    }
 
 
 }
