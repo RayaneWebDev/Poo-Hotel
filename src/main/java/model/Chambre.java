@@ -1,15 +1,18 @@
 package model;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Chambre {
     private int ID_chambre;
-    private Caregorie_Chambre categorie;
+    private Categorie_Chambre categorie;
     private List<Menage> menages ;
 
-    public Chambre(int ID_chambre, Caregorie_Chambre categorie) {
+    public Chambre(int ID_chambre, Categorie_Chambre categorie) {
         this.ID_chambre = ID_chambre;
         this.categorie = categorie;
+        this.menages=new ArrayList<>();
     }
 
     public int getID_chambre() {
@@ -20,11 +23,11 @@ public class Chambre {
         this.ID_chambre = ID_chambre;
     }
 
-    public Caregorie_Chambre getCategorie() {
+    public Categorie_Chambre getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(Caregorie_Chambre categorie) {
+    public void setCategorie(Categorie_Chambre categorie) {
         this.categorie = categorie;
     }
 
@@ -32,9 +35,39 @@ public class Chambre {
         return menages;
     }
     public void setMenages(List<Menage> menages) {
-        this.menages = menages;
+        if (menages != null) {
+            this.menages = menages;
+        } else {
+            this.menages = new ArrayList<>();
+        }
     }
     public void addMenage(Menage menage) {
-        this.menages.add(menage);
+        if (menage != null) {
+            this.menages.add(menage);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Chambre{" +
+                "ID_chambre=" + ID_chambre +
+                ", categorie=" + categorie +
+                ", menages=" + menages +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Chambre)) return false;
+        Chambre chambre = (Chambre) o;
+        return ID_chambre == chambre.ID_chambre &&
+                Objects.equals(categorie, chambre.categorie) &&
+                Objects.equals(menages, chambre.menages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID_chambre, categorie, menages);
     }
 }

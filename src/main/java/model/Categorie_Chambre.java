@@ -1,6 +1,6 @@
 package model;
 
-public enum Caregorie_Chambre {
+public enum Categorie_Chambre {
     DOUBLE,
     SIMPLE,
     SUITE_NORMALE,
