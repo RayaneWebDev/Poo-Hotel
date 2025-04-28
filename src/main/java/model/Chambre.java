@@ -8,10 +8,20 @@ public class Chambre {
     private int ID_chambre;
     private Categorie_Chambre categorie;
     private List<Menage> menages ;
+    private int etat;
 
-    public Chambre(int ID_chambre, Categorie_Chambre categorie) {
+    public int getEtat() {
+        return etat;
+    }
+
+    public void setEtat(int etat) {
+        this.etat = etat;
+    }
+
+    public Chambre(int ID_chambre, Categorie_Chambre categorie, int etat) {
         this.ID_chambre = ID_chambre;
         this.categorie = categorie;
+        this.etat=etat;
         this.menages=new ArrayList<>();
     }
 

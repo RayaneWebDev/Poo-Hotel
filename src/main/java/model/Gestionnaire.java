@@ -35,6 +35,9 @@ public class Gestionnaire extends Personne {
         return produitMinibars.size();
     }
 
+    //conculter teservations client
+    //ajouterclient
+
     @Override
     public String toString() {
         return "Gestionnaire{" +
