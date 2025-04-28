@@ -42,4 +42,12 @@ public class Sejour {
         total += reservation.getPrix();
         return total;
     }
+
+    public void commencerSejour() {
+        System.out.println("Séjour ID " + ID_sejour + " commencé.");
+    }
+
+    public void terminerSejour() {
+        System.out.println("Séjour ID " + ID_sejour + " terminé.");
+    }
 }
