@@ -15,7 +15,7 @@ public class homepage extends JFrame implements ActionListener {
     private JButton boutonSortir;
 
     public homepage() {
-        setTitle("Fenêtre avec Image et Bouton");
+        setTitle("Acceuil");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
