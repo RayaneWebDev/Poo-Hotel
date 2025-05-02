@@ -25,10 +25,13 @@ public class Hotel {
     }
 
     public int getId_Hotel() {
+
         return Id_Hotel;
+
     }
 
     public void setId_Hotel(int id_Hotel) {
+
         Id_Hotel = id_Hotel;
     }
 
@@ -67,6 +70,17 @@ public class Hotel {
     public List<Receptionniste> getReceptionnistes() {
         return receptionnistes;
     }
+    public void ajouterReceptionniste( Receptionniste receptionniste){
+        if (!receptionnistes.contains(receptionniste)) {
+            receptionnistes.add(receptionniste);
+        }
+    }
+    public void supprimerReceptionniste(Receptionniste receptionniste){
+        if (receptionnistes != null && receptionnistes.contains(receptionniste)) {
+            receptionnistes.remove(receptionniste);
+        }
+    }
+
 
     public void setReceptionnistes(List<Receptionniste> receptionnistes) {
         this.receptionnistes = receptionnistes;
@@ -80,16 +94,29 @@ public class Hotel {
         this.chambres = chambres;
     }
 
-    public void addReceptionniste(Receptionniste receptionniste) {
-        this.receptionnistes.add(receptionniste);
+    public void ajouterChambre(Chambre chambre) {
+        if (!chambres.contains(chambre)) {
+            chambres.add(chambre);
+            nbr_chambre++;
+        }
     }
-    public void addChambre(Chambre chambre) {
-        this.chambres.add(chambre);
+
+    public void supprimerChambre(Chambre chambre) {
+        if (chambres != null && chambres.contains(chambre)) {
+            chambres.remove(chambre);
+            nbr_chambre--;
+        }
     }
 
     public void addReservation(Reservation reservation){
         this.reservations.add(reservation);
     }
+    public void supprimerReservation(Reservation reservation){
+        if (reservations != null && reservations.contains(reservation)) {
+            reservations.remove(reservation);
+        }
+    }
+
 
     public void setProduitMinibars(List<ProduitMinibar> produitMinibars) {
         this.produitMinibars = produitMinibars;
@@ -100,5 +127,11 @@ public class Hotel {
     public void addProduitMinibar(ProduitMinibar produit) {
         this.produitMinibars.add(produit);
     }
+    public void supprimerProdMinibar(ProduitMinibar produitMinibar){
+        if (produitMinibars != null && produitMinibars.contains(produitMinibar)) {
+            produitMinibars.remove(produitMinibar);
+        }
+    }
+
 }
 

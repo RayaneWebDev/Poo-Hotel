@@ -28,4 +28,16 @@ public class Menage extends Service {
         return this.femmesDeMenage;
     }
 
+    public void ajouterFemmeMenage(FemmeDeMenage femmeDeMenage){
+        if (!femmesDeMenage.contains(femmeDeMenage)) {
+            femmesDeMenage.add(femmeDeMenage);
+        }
+    }
+
+    public void supprimerFemmeMeange(FemmeDeMenage femmeDeMenage){
+        if (femmesDeMenage != null && femmesDeMenage.contains(femmeDeMenage)) {
+            femmesDeMenage.remove(femmeDeMenage);
+        }
+    }
+
 }

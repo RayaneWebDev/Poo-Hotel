@@ -5,9 +5,21 @@ import model.*;
 
 public class backend {
 
-    public static void main(String arg[]){
-        Receptionniste r = new Receptionniste(1, "hosam", "elhaddajy", "06");
-        dashbord_receptionist dr = new dashbord_receptionist(r);
+
+    private homepage homepage;
+
+    public void startApp() {
+        homepage = new homepage();
     }
 
+    public void dashboard_receptionneste() {
+        Receptionniste r = new Receptionniste(1, "Hosam", "Elhaddajy", "06");
+        new dashbord_receptionist(r);
+    }
+
+    public void  dashboard_gestionnaire() {
+        Gestionnaire g = new Gestionnaire(1, "Hosam", "Elhaddajy", "06");
+        new dashboard_gestionnaire(g);
+    }
 }
+

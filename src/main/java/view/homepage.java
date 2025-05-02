@@ -7,15 +7,19 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+import controller.backend;
 
 public class homepage extends JFrame implements ActionListener {
 
     private Image backgroundImage;
-    private JButton boutonEntree;
-    private JButton boutonSortir;
+    private JButton receptionnist;
+    private JButton gestionnaire;
+    private JButton exit;
+    private backend controller;
 
     public homepage() {
-        setTitle("Fenêtre avec Image et Bouton");
+        this.controller = new backend();
+        setTitle("Acceuil");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -50,36 +54,19 @@ public class homepage extends JFrame implements ActionListener {
 
         // Constraints for centering the group of buttons
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+
         gbc.anchor = GridBagConstraints.CENTER;
 
         // Panel to hold the buttons horizontally
-        JPanel buttonsHorizontalPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0));
-        buttonsHorizontalPanel.setOpaque(false);
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0));
+        panel.setOpaque(false);
+        receptionnist = creerBtn("receptionnist");
+        panel.add(receptionnist);
+        gestionnaire = creerBtn("gestionnaire");
 
-        // Créer le bouton "Entrée"
-        boutonEntree = new JButton("Entrée");
-        boutonEntree.setBackground(Color.BLACK);
-        boutonEntree.setForeground(Color.WHITE);
-        boutonEntree.setFont(new Font("Arial", Font.BOLD, 24));
-        boutonEntree.setPreferredSize(new Dimension(150, 60));
-        boutonEntree.addActionListener(this);
-        buttonsHorizontalPanel.add(boutonEntree);
+        panel.add(gestionnaire);
 
-        // Créer le bouton "Sortir"
-        boutonSortir = new JButton("Sortir");
-        boutonSortir.setBackground(Color.BLACK);
-        boutonSortir.setForeground(Color.WHITE);
-        boutonSortir.setFont(new Font("Arial", Font.BOLD, 24));
-        boutonSortir.setPreferredSize(new Dimension(150, 60));
-        boutonSortir.addActionListener(this);
-        buttonsHorizontalPanel.add(boutonSortir);
-
-        // Add the horizontal button panel to the center of the background panel
-        backgroundPanel.add(buttonsHorizontalPanel, gbc);
+        backgroundPanel.add(panel, gbc);
 
         add(backgroundPanel, BorderLayout.CENTER);
 
@@ -91,20 +78,37 @@ public class homepage extends JFrame implements ActionListener {
         }
         setLocationRelativeTo(null);
         setVisible(true);
+
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == boutonEntree) {
-            JOptionPane.showMessageDialog(this, "Bouton Entrée cliqué !", "Action", JOptionPane.INFORMATION_MESSAGE);
-            // Ajouter ici l'action pour le bouton Entrée
-        } else if (e.getSource() == boutonSortir) {
-            JOptionPane.showMessageDialog(this, "Bouton Sortir cliqué !", "Action", JOptionPane.INFORMATION_MESSAGE);
-            // Ajouter ici l'action pour le bouton Sortir
+        if (e.getSource() == receptionnist) {
+            controller.dashboard_receptionneste();
+            dispose();
+
+        } else if (e.getSource() == gestionnaire) {
+            controller.dashboard_gestionnaire();
+            dispose();
+
         }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new homepage());
+    }
+
+    public JButton creerBtn(String str){
+        JButton btn;
+        btn = new JButton(str);
+        btn.setBackground(Color.BLACK);
+        btn.setForeground(Color.WHITE);
+        btn.setFont(new Font("Arial", Font.BOLD, 24));
+        btn.setPreferredSize(new Dimension(250, 60));
+        btn.addActionListener(this);
+        return btn;
+
     }
 }
