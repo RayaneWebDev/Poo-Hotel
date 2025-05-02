@@ -1,5 +1,6 @@
 package view;
 
+import model.Gestionnaire;
 import model.Receptionniste;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import java.awt.event.ActionListener;
 
 //1500 - 800
 
-public class dashbord_receptionist extends JFrame implements ActionListener {
+public class dashboard_gestionnaire extends JFrame implements ActionListener {
 
     JButton exit_btn;
     JButton consulter_btn;
@@ -17,7 +18,7 @@ public class dashbord_receptionist extends JFrame implements ActionListener {
     JButton gerer_plainte_btn;
     JButton gererCleint;
 
-    public dashbord_receptionist(Receptionniste receptionniste) {
+    public dashboard_gestionnaire(Gestionnaire gestionnaire) {
         setTitle("Dashboard Receptionist");
         setSize(1500, 800);
         setLocationRelativeTo(null); // Center on screen
