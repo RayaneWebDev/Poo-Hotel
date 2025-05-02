@@ -2,6 +2,7 @@ package model;
 import java.util.List;
 
 public class Client extends Personne {
+    private int id;
     private List<Reservation> reservations;
     private List<Plainte> plaintes;
 
@@ -9,6 +10,13 @@ public class Client extends Personne {
                   List<Reservation> reservations) {
         super(ID_user, nom, prenom, tel, "client");
         this.reservations = reservations;
+    }
+
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id = id;
     }
 
     public void addReservation(Reservation reservation) {
@@ -32,5 +40,12 @@ public class Client extends Personne {
 
     public void setPlaintes(List<Plainte> plaintes) {
         this.plaintes = plaintes;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+    public String getTel() {
+        return tel;
     }
 }
