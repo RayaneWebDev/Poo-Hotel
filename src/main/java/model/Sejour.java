@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Sejour {
     private int ID_sejour;
-    List<ProduitMinibar> produitMinibar;
+    List<ProduitMinibar> produitsConsommes;
     private Reservation reservation;
 
     public Sejour(int ID_sejour, Reservation reservation) {
@@ -20,12 +20,34 @@ public class Sejour {
         this.ID_sejour = ID_sejour;
     }
     public List<ProduitMinibar> getProduitMinibar() {
-        return produitMinibar;
+        return produitsConsommes;
     }
     public void setProduitMinibar(List<ProduitMinibar> prodMinibar) {
-        this.produitMinibar = prodMinibar;
+        this.produitsConsommes = prodMinibar;
     }
     public void addProduitMinibar(ProduitMinibar produitMinibar) {
-        this.produitMinibar.add(produitMinibar);
+        this.produitsConsommes.add(produitMinibar);
+    }
+    public void afficherProduitsConsommes() {
+        System.out.println("Produits consommés : ");
+        for (ProduitMinibar p : produitsConsommes) {
+            p.afficher();
+        }
+    }
+    public float calculerTotalConsommation() {
+        float total = 0;
+        for (ProduitMinibar p : produitsConsommes) {
+            total += p.getPrix();
+        }
+        total += reservation.getPrix();
+        return total;
+    }
+
+    public void commencerSejour() {
+        System.out.println("Séjour ID " + ID_sejour + " commencé.");
+    }
+
+    public void terminerSejour() {
+        System.out.println("Séjour ID " + ID_sejour + " terminé.");
     }
 }

@@ -80,4 +80,14 @@ public class Chambre {
     public int hashCode() {
         return Objects.hash(ID_chambre, categorie, menages);
     }
+
+    public float getPrix(){
+        switch (categorie) {
+            case SIMPLE : return 100 ;
+            case SUITE_NORMALE: return 200 ;
+            case SUITE_PRESIDENTIELLE: return 300;
+            default: return 100;
+        }
+
+    }
 }
