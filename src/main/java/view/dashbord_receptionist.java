@@ -1,6 +1,7 @@
 package view;
 
 import controller.ClientController;
+import controller.ReservationController;
 import model.Receptionniste;
 
 import javax.swing.*;
@@ -52,6 +53,18 @@ public class dashbord_receptionist extends JFrame implements ActionListener {
             rightPanel.revalidate();
             rightPanel.repaint();
 
+        });
+
+        // Consultation des réservations
+        ConsultationReservationsView consultationView = new ConsultationReservationsView();
+        ReservationController reservationController = new ReservationController(consultationView);
+
+        consulter_btn.addActionListener(e -> {
+            rightPanel.removeAll();
+            rightPanel.setLayout(new BorderLayout());
+            rightPanel.add(consultationView, BorderLayout.CENTER);
+            rightPanel.revalidate();
+            rightPanel.repaint();
         });
 
         gerer_chambre_btn.addActionListener(e -> {
@@ -147,4 +160,7 @@ public class dashbord_receptionist extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // Implement general action handling if needed
     }
+
+
+
 }

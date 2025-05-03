@@ -10,13 +10,15 @@ public class Reservation {
 
     private boolean status = false;
 
-    public Reservation(int ID_reservation, int nbr_nuits, float prix, Date date_debut, Date date_fin, Chambre chambre, boolean status) {
+    public Reservation(int ID_reservation, int nbr_nuits, Date date_debut, Date date_fin, Chambre chambre, boolean status) {
         this.ID_reservation = ID_reservation;
         this.nbr_nuits = nbr_nuits;
         this.date_debut = date_debut;
         this.date_fin = date_fin;
         this.chambre = chambre;
+        this.status = status;
     }
+
 
     public int getID_reservation() {
         return ID_reservation;

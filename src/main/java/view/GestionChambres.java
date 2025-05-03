@@ -64,10 +64,15 @@ public class GestionChambres extends JPanel {
     }
 
     // Getters
-    public String getNumero() { return tfNumero.getText(); }
-    public String getType() { return cbType.getSelectedItem().toString(); }
-    public String getPrix() { return tfPrix.getText(); }
-    public String getEtat() { return cbEtat.getSelectedItem().toString(); }
-    public JTable getTable() { return chambreTable; }
+    public String getNumero() {
+        return tfNumero.getText(); }
+    public String getType() {
+        return cbType.getSelectedItem().toString(); }
+    public String getPrix() {
+        return tfPrix.getText(); }
+    public String getEtat() {
+        return cbEtat.getSelectedItem().toString(); }
+    public JTable getTable() {
+        return chambreTable; }
     public DefaultTableModel getModel() { return model; }
 }
