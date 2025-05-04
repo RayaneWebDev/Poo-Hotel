@@ -1,6 +1,7 @@
 package view;
 
 import controller.ClientController;
+import controller.PlainteController;
 import controller.ReservationController;
 import model.Receptionniste;
 
@@ -59,6 +60,7 @@ public class dashbord_receptionist extends JFrame implements ActionListener {
         ConsultationReservationsView consultationView = new ConsultationReservationsView();
         ReservationController reservationController = new ReservationController(consultationView);
 
+
         consulter_btn.addActionListener(e -> {
             rightPanel.removeAll();
             rightPanel.setLayout(new BorderLayout());
@@ -76,6 +78,18 @@ public class dashbord_receptionist extends JFrame implements ActionListener {
             rightPanel.repaint();
         });
 
+        // gerer les plaintes
+        PlainteView gestionPlaintesView = new PlainteView();
+        PlainteController gestionPlainteController = new PlainteController(gestionPlaintesView);
+        gestionPlaintesView.setController(gestionPlainteController);
+        gerer_plainte_btn.addActionListener(e -> {
+            rightPanel.removeAll();
+            rightPanel.setLayout(new BorderLayout());
+            rightPanel.add(gestionPlaintesView, BorderLayout.CENTER);
+            rightPanel.revalidate();
+            rightPanel.repaint();
+
+        });
 
 
         exit_btn.addActionListener(e -> System.exit(0));
