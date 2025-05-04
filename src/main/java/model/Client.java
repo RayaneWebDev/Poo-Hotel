@@ -3,13 +3,19 @@ import java.util.List;
 
 public class Client extends Personne {
     private int id;
+    private String email;
     private List<Reservation> reservations;
     private List<Plainte> plaintes;
 
-    public Client(int ID_user, String nom, String prenom, String tel,
+    public Client(int ID_user, String nom , String prenom, String tel, String email){
+        super(ID_user,nom,prenom,tel,"client");
+        this.email = email;
+    }
+    public Client(int ID_user, String nom, String prenom, String tel,String email,
                   List<Reservation> reservations) {
         super(ID_user, nom, prenom, tel, "client");
         this.reservations = reservations;
+        this.email = email;
     }
 
     public void addReservation(Reservation reservation) {
@@ -39,6 +45,12 @@ public class Client extends Personne {
     }
     public void setId(int id){
         this.id = id;
+    }
+    public void setEmail(String email){
+        this.email = email;
+    }
+    public String getEmail(){
+        return this.email;
     }
 
 }

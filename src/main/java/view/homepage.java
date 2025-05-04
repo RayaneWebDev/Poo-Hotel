@@ -60,9 +60,9 @@ public class homepage extends JFrame implements ActionListener {
         // Panel to hold the buttons horizontally
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0));
         panel.setOpaque(false);
-        receptionnist = creerBtn("receptionnist");
+        receptionnist = creerBtn("Réceptionniste");
         panel.add(receptionnist);
-        gestionnaire = creerBtn("gestionnaire");
+        gestionnaire = creerBtn("Gestionnaire");
 
         panel.add(gestionnaire);
 
