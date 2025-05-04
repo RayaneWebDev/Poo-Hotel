@@ -3,12 +3,20 @@ package model;
 public class ProduitMinibar {
     private int Id_produit;
     private String nomProduit;
+    private int quantite ;
     private float prix;
 
-    public ProduitMinibar(int Id_produit, String nomProduit, float prix) {
+    public ProduitMinibar(int Id_produit, String nomProduit, float prix, int quantite) {
         this.Id_produit = Id_produit;
         this.nomProduit = nomProduit;
         this.prix = prix;
+        this.quantite = quantite;
+    }
+    public int getQuantite(){
+        return this.quantite;
+    }
+    public void setQuantite(int quantite){
+        this.quantite = quantite;
     }
 
     public int getId_produit() {

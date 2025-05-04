@@ -96,9 +96,7 @@ public class homepage extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new homepage());
-    }
+
 
     public JButton creerBtn(String str){
         JButton btn;

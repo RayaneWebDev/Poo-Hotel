@@ -1,27 +1,27 @@
 package view;
 
+import controller.Consultationstock;
 import model.Gestionnaire;
-import model.Receptionniste;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//1500 - 800
-
 public class dashboard_gestionnaire extends JFrame implements ActionListener {
 
     JButton exit_btn;
     JButton consulter_btn;
-    JButton gerer_chambre_btn;
-    JButton gerer_plainte_btn;
-    JButton gererCleint;
+    JButton gerer_produit_btn;
+    private JPanel contentPanel;
+    private Consultationstock produitController;
 
     public dashboard_gestionnaire(Gestionnaire gestionnaire) {
-        setTitle("Dashboard Receptionist");
+        produitController = new Consultationstock();
+
+        setTitle("Dashboard Gestionnaire");
         setSize(1500, 800);
-        setLocationRelativeTo(null); // Center on screen
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -30,26 +30,25 @@ public class dashboard_gestionnaire extends JFrame implements ActionListener {
         leftPanel.setLayout(new GridLayout(5, 1, 0, 10));
         leftPanel.setPreferredSize(new Dimension(250, 800));
 
-        consulter_btn = new JButton("Consulter les réservations");
-        gerer_chambre_btn = new JButton("Gérer les chambres");
-        gerer_plainte_btn = new JButton("Gérer les plaintes");
+        consulter_btn = new JButton("Consulter le stock");
+        gerer_produit_btn = new JButton("Gérer les produit");
         exit_btn = new JButton("Exit");
-        gererCleint = new JButton("Gerer les clients");
 
         styleMenuButton(consulter_btn, true);
-        styleMenuButton(gerer_chambre_btn, false);
-        styleMenuButton(gerer_plainte_btn, false);
-        styleMenuButton(gererCleint, false);
+        styleMenuButton(gerer_produit_btn, false);
         styleExitButton(exit_btn);
 
-        leftPanel.add(consulter_btn);
-        leftPanel.add(gererCleint);
-        leftPanel.add(gerer_chambre_btn);
-        leftPanel.add(gerer_plainte_btn);
-        //leftPanel.add(Box.createVerticalStrut(300));
-        leftPanel.add(exit_btn);
+        consulter_btn.addActionListener(this);
+        gerer_produit_btn.addActionListener(this);
+        exit_btn.addActionListener(this);
 
+        leftPanel.add(consulter_btn);
+        leftPanel.add(gerer_produit_btn);
+        leftPanel.add(exit_btn);
         add(leftPanel, BorderLayout.WEST);
+
+        contentPanel = new JPanel(new BorderLayout());
+        add(contentPanel, BorderLayout.CENTER);
 
         setVisible(true);
     }
@@ -72,6 +71,15 @@ public class dashboard_gestionnaire extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        contentPanel.removeAll();
+        if (e.getSource() == gerer_produit_btn) {
+            contentPanel.add(new GestionProduitView(produitController), BorderLayout.CENTER);
+        } else if (e.getSource() == consulter_btn) {
+            contentPanel.add(new ConsultationStock(produitController), BorderLayout.CENTER);
+        } else if (e.getSource() == exit_btn) {
+            System.exit(0);
+        }
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 }
