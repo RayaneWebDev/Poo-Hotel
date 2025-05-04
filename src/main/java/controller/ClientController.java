@@ -19,16 +19,16 @@ public class ClientController {
         if (view != null) {
             view.getModel().setRowCount(0); // Clear
             for (Client c : clients) {
-                view.getModel().addRow(new Object[]{c.getId(), c.getNom(), c.getPrenom(), c.getTel()});
+                view.getModel().addRow(new Object[]{c.getId(), c.getNom(), c.getPrenom(), c.getTel(), c.getEmail()});
             }
         }
     }
 
     public void ajouterClient() {
-        String nom = view.getNom(), prenom = view.getPrenom(), tel = view.getTelephone();
-        if (nom.isEmpty() || prenom.isEmpty() || tel.isEmpty()) return;
+        String nom = view.getNom(), prenom = view.getPrenom(), tel = view.getTelephone(), email = view.getEmail();
+        if (nom.isEmpty() || prenom.isEmpty() || tel.isEmpty() || email.isEmpty()) return;
         int id = clients.size() + 1;
-        Client c = new Client(id, nom, prenom, tel, new ArrayList<Reservation>());
+        Client c = new Client(id, nom, prenom, tel, email,new ArrayList<Reservation>());
         clients.add(c);
         loadClients();
     }
@@ -40,6 +40,7 @@ public class ClientController {
         c.setNom(view.getNom());
         c.setPrenom(view.getPrenom());
         c.setTel(view.getTelephone());
+        c.setEmail(view.getEmail());
         loadClients();
     }
 
@@ -55,7 +56,7 @@ public class ClientController {
         view.getModel().setRowCount(0);
         for (Client c : clients) {
             if (c.getNom().toLowerCase().contains(nom.toLowerCase())) {
-                view.getModel().addRow(new Object[]{c.getId(), c.getNom(), c.getPrenom(), c.getTel()});
+                view.getModel().addRow(new Object[]{c.getId(), c.getNom(), c.getPrenom(), c.getTel(), c.getEmail()});
             }
         }
     }
