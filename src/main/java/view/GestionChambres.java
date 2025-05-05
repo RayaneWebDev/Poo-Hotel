@@ -10,7 +10,7 @@ public class GestionChambres extends JPanel {
 
     private JTable chambreTable;
     private DefaultTableModel model;
-    private JTextField tfNumero, tfPrix;
+    private JTextField tfNumero;
     private JComboBox<String> cbType, cbEtat;
     private ChambreControleur controller;
 
@@ -22,12 +22,11 @@ public class GestionChambres extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
         add(titleLabel, BorderLayout.NORTH);
 
-        // Panel haut avec formulaire + boutons
+        // Panel du formulaire + boutons
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         tfNumero = new JTextField(5);
-        cbType = new JComboBox<>(new String[]{"Simple", "Double", "Suite"});
-        tfPrix = new JTextField(5);
+        cbType = new JComboBox<>(new String[]{"SIMPLE", "SUITE_NORMALE", "SUITE_PRESIDENTIELLE"});
         cbEtat = new JComboBox<>(new String[]{"Disponible", "Occupée", "En nettoyage", "En maintenance", "Réservée"});
 
         JButton ajouterBtn = new JButton("Ajouter");
@@ -35,10 +34,12 @@ public class GestionChambres extends JPanel {
         JButton supprimerBtn = new JButton("Supprimer");
         JButton rechercherBtn = new JButton("Rechercher");
 
-        topPanel.add(new JLabel("Numéro:")); topPanel.add(tfNumero);
-        topPanel.add(new JLabel("Type:")); topPanel.add(cbType);
-        topPanel.add(new JLabel("Prix:")); topPanel.add(tfPrix);
-        topPanel.add(new JLabel("État:")); topPanel.add(cbEtat);
+        topPanel.add(new JLabel("Numéro:"));
+        topPanel.add(tfNumero);
+        topPanel.add(new JLabel("Type:"));
+        topPanel.add(cbType);
+        topPanel.add(new JLabel("État:"));
+        topPanel.add(cbEtat);
         topPanel.add(ajouterBtn);
         topPanel.add(modifierBtn);
         topPanel.add(supprimerBtn);
@@ -63,16 +64,31 @@ public class GestionChambres extends JPanel {
         rechercherBtn.addActionListener(e -> controller.rechercherChambre());
     }
 
-    // Getters
+    // === Getters nécessaires pour le contrôleur ===
     public String getNumero() {
-        return tfNumero.getText(); }
+        return tfNumero.getText();
+    }
+
     public String getType() {
-        return cbType.getSelectedItem().toString(); }
-    public String getPrix() {
-        return tfPrix.getText(); }
+        return cbType.getSelectedItem().toString();
+    }
+
     public String getEtat() {
-        return cbEtat.getSelectedItem().toString(); }
+        return cbEtat.getSelectedItem().toString();
+    }
+
     public JTable getTable() {
-        return chambreTable; }
-    public DefaultTableModel getModel() { return model; }
+        return chambreTable;
+    }
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    // Pour réinitialiser les champs après ajout ou modification
+    public void resetChamps() {
+        tfNumero.setText("");
+        cbType.setSelectedIndex(0);
+        cbEtat.setSelectedIndex(0);
+    }
 }
