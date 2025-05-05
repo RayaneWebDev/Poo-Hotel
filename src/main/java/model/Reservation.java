@@ -51,12 +51,6 @@ public class Reservation {
         this.date_fin = date_fin;
     }
 
-    public void setStatus(boolean status){
-        this.status =status;
-    }
-    public boolean getstatus(){
-        return status;
-    }
 
     public float total_reservation(int nbr_nuit, float prix){
         float total = nbr_nuit*prix;

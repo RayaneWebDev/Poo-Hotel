@@ -52,8 +52,9 @@ public class ConsultationReservationsView extends JPanel {
         add(title, BorderLayout.NORTH);
 
         // Formulaire d'ajout
-        JPanel formPanel = new JPanel(new GridLayout(2, 7, 5, 5));
+        JPanel formPanel = new JPanel(new GridLayout(3, 5, 5, 5));
         formPanel.setBorder(BorderFactory.createTitledBorder("Ajouter une réservation"));
+
         formPanel.add(new JLabel("ID"));
         formPanel.add(new JLabel("Nuits"));
         formPanel.add(new JLabel("Début (yyyy-mm-dd)"));
@@ -65,8 +66,13 @@ public class ConsultationReservationsView extends JPanel {
         formPanel.add(debutField);
         formPanel.add(finField);
         formPanel.add(chambreIDField);
+
         formPanel.add(ajouterBtn);
         formPanel.add(modifierBtn);
+        formPanel.add(new JLabel("")); // Cellules vides pour remplir la ligne
+        formPanel.add(new JLabel(""));
+        formPanel.add(new JLabel(""));
+
 
 
         add(formPanel, BorderLayout.NORTH);

@@ -28,8 +28,14 @@ public class ReservationController {
             int nuits = Integer.parseInt(view.getNuitsField().getText());
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
             Date debut = sdf.parse(view.getDebutField().getText());
             Date fin = sdf.parse(view.getFinField().getText());
+
+
+
+
 
             int chambreID = Integer.parseInt(view.getChambreIDField().getText());
 
@@ -43,10 +49,13 @@ public class ReservationController {
             view.showMessage("Réservation ajoutée avec succès !");
             viderChamps();
 
-        } catch (NumberFormatException | ParseException ex) {
-            view.showMessage("Erreur : vérifiez les champs. Format de date attendu : yyyy-MM-dd");
-        }
+        }  catch (NumberFormatException ex) {
+        view.showMessage("Erreur : vérifiez que les champs ID, Nuits et Chambre ID sont bien des nombres.");
+    } catch (ParseException ex) {
+        view.showMessage("Erreur : format de date incorrect. Format attendu : yyyy-MM-dd");
     }
+
+}
 
     public void modifierReservation() {
         int selectedRow = view.getReservationTable().getSelectedRow();
