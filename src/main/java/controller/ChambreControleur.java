@@ -13,14 +13,15 @@ public class ChambreControleur {
     }
 
     public void ajouterChambre() {
-        // Récupère les champs depuis la vue
         String numero = view.getNumero();
-        String type = String.valueOf(view.getType());
+        String type = view.getType();
         String prix = view.getPrix();
         String etat = view.getEtat();
 
-        // TODO : Valider et ajouter la chambre
-        System.out.println("Chambre ajoutée : " + numero);
+
+        view.getModel().addRow(new Object[]{numero, type, prix, etat});
+
+
     }
 
     public void modifierChambre() {

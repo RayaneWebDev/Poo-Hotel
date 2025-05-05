@@ -55,13 +55,24 @@ public class Accueil extends Service {
     }
 
     @Override
-    public String toString(){
-        return "Accueil{" +
-                "ID_service=" + getID_service() +
-                ", nom_service='" + nom_service + '\'' +
-                ", date=" + date +
-                ", bagagistes=" + bagagistes +
-                '}';
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Accueil{")
+                .append("ID_service=").append(getID_service())
+                .append(", nom_service='").append(nom_service).append('\'')
+                .append(", date=").append(date)
+                .append(", bagagistes=[");
+
+        for (Bagagiste b : bagagistes) {
+            sb.append(b.getNom()).append(" ").append(b.getPrenom()).append(", ");
+        }
+
+        if (!bagagistes.isEmpty()) {
+            sb.setLength(sb.length() - 2); // remove last comma
+        }
+
+        sb.append("]}");
+        return sb.toString();
     }
 
     @Override

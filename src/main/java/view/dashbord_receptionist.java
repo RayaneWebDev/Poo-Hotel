@@ -112,7 +112,7 @@ public class dashbord_receptionist extends JFrame implements ActionListener {
         header.setBackground(new Color(26, 37, 47));
         header.setPreferredSize(new Dimension(getWidth(), 60));
 
-        JLabel title = new JLabel("Bienvenue, Réceptionniste");
+        JLabel title = new JLabel("Bienvenue Moniseur "+receptionniste.getNom()+" "+receptionniste.getPrenom());
         title.setForeground(Color.WHITE);
         title.setFont(new Font("Segoe UI", Font.BOLD, 20));
 

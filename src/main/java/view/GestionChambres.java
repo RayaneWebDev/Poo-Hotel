@@ -1,6 +1,7 @@
 package view;
 
 import controller.ChambreControleur;
+import model.ProduitMinibar;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -75,4 +76,6 @@ public class GestionChambres extends JPanel {
     public JTable getTable() {
         return chambreTable; }
     public DefaultTableModel getModel() { return model; }
+
+
 }
