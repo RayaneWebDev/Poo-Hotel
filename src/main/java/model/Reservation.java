@@ -10,13 +10,12 @@ public class Reservation {
 
     private boolean status = false;
 
-    public Reservation(int ID_reservation, int nbr_nuits, Date date_debut, Date date_fin, Chambre chambre, boolean status) {
+    public Reservation(int ID_reservation, int nbr_nuits, Date date_debut, Date date_fin, Chambre chambre) {
         this.ID_reservation = ID_reservation;
         this.nbr_nuits = nbr_nuits;
         this.date_debut = date_debut;
         this.date_fin = date_fin;
         this.chambre = chambre;
-        this.status = status;
     }
 
 
@@ -52,12 +51,6 @@ public class Reservation {
         this.date_fin = date_fin;
     }
 
-    public void setStatus(boolean status){
-        this.status =status;
-    }
-    public boolean getstatus(){
-        return status;
-    }
 
     public float total_reservation(int nbr_nuit, float prix){
         float total = nbr_nuit*prix;
@@ -74,12 +67,11 @@ public class Reservation {
     public float getPrix(){
         return chambre.getPrix();
     }
+
+
     public void afficherReservation() {
         System.out.println("ID: " + ID_reservation + " | Nuits: " + nbr_nuits + " | Prix chambre: " + chambre.getPrix());
     }
 
 
 }
-
-
-

@@ -38,7 +38,7 @@ public class dashbord_receptionist extends JFrame implements ActionListener {
 
         consulter_btn = createMenuButton("Consulter les réservations");
         gerer_chambre_btn = createMenuButton("Gérer les chambres");
-        gerer_plainte_btn = createMenuButton("Gérer les plaintes");
+        gerer_plainte_btn = createMenuButton("Voir les plaintes");
         gererClientsBtn = createMenuButton("Gérer les clients");
         exit_btn = createExitButton("Exit");
 
