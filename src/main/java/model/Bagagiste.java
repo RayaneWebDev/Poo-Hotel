@@ -40,14 +40,26 @@ public class Bagagiste extends Personne {
     }
     @Override
     public String toString() {
-        return "Bagagiste{" +
-                "ID_user=" + getID_user() +
-                ", nom=" + getNom() +
-                ", prenom=" + getPrenom() +
-                ", tel=" + getTel() +
-                ", accueils=" + accueils +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Bagagiste{")
+                .append("ID_user=").append(getID_user())
+                .append(", nom=").append(getNom())
+                .append(", prenom=").append(getPrenom())
+                .append(", tel=").append(getTel())
+                .append(", accueils=[");
+
+        for (Accueil accueil : accueils) {
+            sb.append(accueil.getNom_service()).append(", ");
+        }
+
+        if (!accueils.isEmpty()) {
+            sb.setLength(sb.length() - 2); // remove last comma
+        }
+
+        sb.append("]}");
+        return sb.toString();
     }
+
 
     @Override
     public boolean equals(Object o) {
