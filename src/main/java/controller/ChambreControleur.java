@@ -14,6 +14,7 @@ public class ChambreControleur {
     private final GestionChambres view;
     private final List<Chambre> chambres;
 
+
     public ChambreControleur(GestionChambres view) {
         this.view = view;
         this.chambres = new ArrayList<>();
@@ -186,5 +187,9 @@ public class ChambreControleur {
             case "Réservée" -> 4;
             default -> 0;
         };
+    }
+
+    public List<Chambre> getChambres(){
+        return chambres;
     }
 }
