@@ -8,6 +8,7 @@ import model.Gestionnaire;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,8 +31,8 @@ public class dashboard_gestionnaire extends JFrame implements ActionListener {
         produitController = new Consultationstock();
 
         femmesDeMenageController = new FemmeDeMenageController();
-        GestionChambres gestionChambresView = new GestionChambres();
-        chambreControleur = new ChambreControleur(gestionChambresView);
+        ChambreView gestionChambresView = new ChambreView();
+        chambreControleur = new ChambreControleur(gestionChambresView,new ArrayList<>());
         List<FemmeDeMenage> femmes = femmesDeMenageController.getFemmes();
         List<Chambre> chambres = chambreControleur.getChambres();
 

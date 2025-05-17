@@ -1,137 +1,151 @@
 package view;
 
-import model.Chambre;
 import model.Reservation;
-import model.Categorie_Chambre;
+import model.Client;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.Date;
 import java.util.List;
 
 public class ConsultationReservationsView extends JPanel {
 
     private JTable reservationTable;
-
-    public DefaultTableModel getModel() {
-        return model;
-    }
-
-    public JTable getReservationTable() {
-        return reservationTable;
-    }
-
-    public void setReservationTable(JTable reservationTable) {
-        this.reservationTable = reservationTable;
-    }
-
     private DefaultTableModel model;
 
     // Champs du formulaire
-    private JTextField idField = new JTextField(5);
     private JTextField nuitsField = new JTextField(5);
-    private JTextField debutField = new JTextField(10); // format simple : yyyy-mm-dd
-    private JTextField finField = new JTextField(10);
+    private JTextField debutField = new JTextField(10);
     private JTextField chambreIDField = new JTextField(5);
+    private JComboBox<Client> clientComboBox = new JComboBox<>();
 
-    public void setModel(DefaultTableModel model) {
-        this.model = model;
-    }
-
-    JButton ajouterBtn = new JButton("Ajouter");
-    JButton modifierBtn = new JButton("Modifier");
-
+    private JButton ajouterBtn = new JButton("Ajouter");
+    private JButton modifierBtn = new JButton("Modifier");
 
     public ConsultationReservationsView() {
         setLayout(new BorderLayout());
 
-        // Titre
-        JLabel title = new JLabel("GÉRER LES CONSULTATIONS", SwingConstants.CENTER);
+        JLabel title = new JLabel("GÉRER LES RÉSERVATIONS", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 20));
         add(title, BorderLayout.NORTH);
 
-        // Formulaire d'ajout
-        JPanel formPanel = new JPanel(new GridLayout(3, 5, 5, 5));
-        formPanel.setBorder(BorderFactory.createTitledBorder("Ajouter une réservation"));
+        // Formulaire avec 4 colonnes et 2 lignes (labels + champs)
+        JPanel formPanel = new JPanel(new GridLayout(2, 4, 5, 5));
+        formPanel.setBorder(BorderFactory.createTitledBorder("Ajouter / Modifier une réservation"));
 
-        formPanel.add(new JLabel("ID"));
+        formPanel.add(new JLabel("Client"));
         formPanel.add(new JLabel("Nuits"));
         formPanel.add(new JLabel("Début (yyyy-mm-dd)"));
-        formPanel.add(new JLabel("Fin (yyyy-mm-dd)"));
-        formPanel.add(new JLabel("Chambre ID"));
+        formPanel.add(new JLabel("Numéro chambre"));
 
-        formPanel.add(idField);
+        formPanel.add(clientComboBox);
         formPanel.add(nuitsField);
         formPanel.add(debutField);
-        formPanel.add(finField);
         formPanel.add(chambreIDField);
-
-        formPanel.add(ajouterBtn);
-        formPanel.add(modifierBtn);
-        formPanel.add(new JLabel("")); // Cellules vides pour remplir la ligne
-        formPanel.add(new JLabel(""));
-        formPanel.add(new JLabel(""));
-
-
 
         add(formPanel, BorderLayout.NORTH);
 
-        // Tableau
-        String[] colonnes = {"ID", "Nuits", "Début", "Fin", "Chambre"};
-        model = new DefaultTableModel(colonnes, 0);
+        // Boutons dans un panel séparé (plus esthétique)
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(ajouterBtn);
+        buttonPanel.add(modifierBtn);
+        add(buttonPanel, BorderLayout.AFTER_LAST_LINE);
+
+        // Tableau des réservations
+        String[] colonnes = {"Nom Client", "Nuits", "Date Début", "Numéro Chambre", "Prix Total (€)"};
+        model = new DefaultTableModel(colonnes, 0) {
+            // Rendre le tableau non éditable directement
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         reservationTable = new JTable(model);
         reservationTable.setRowHeight(25);
 
         add(new JScrollPane(reservationTable), BorderLayout.CENTER);
     }
 
-    public void afficherReservations(List<Reservation> reservations) {
+    public void afficherReservations(List<Reservation> reservations, List<Client> clients) {
         model.setRowCount(0);
         for (Reservation r : reservations) {
+            Client clientTrouve = clients.stream()
+                    .filter(c -> c.getReservations() != null && c.getReservations().contains(r))
+                    .findFirst()
+                    .orElse(null);
+
+            String nomComplet = (clientTrouve != null)
+                    ? clientTrouve.getPrenom() + " " + clientTrouve.getNom()
+                    : "Inconnu";
+
+            double prixUnitaire = r.getChambre().getPrix();
+            double prixTotal = r.getNbr_nuits() * prixUnitaire;
+
             model.addRow(new Object[]{
-                    r.getID_reservation(),
+                    nomComplet,
                     r.getNbr_nuits(),
                     r.getDate_debut(),
-                    r.getDate_fin(),
                     r.getChambre().getID_chambre(),
-                    r.total_reservation(r.getNbr_nuits(), r.getPrix())
+                    prixTotal
             });
         }
     }
 
-    // Getters pour les champs du formulaire
-
-    public JButton getModifierBtn() {
-        return modifierBtn;
+    public void setClients(List<Client> clients) {
+        clientComboBox.removeAllItems();
+        for (Client c : clients) {
+            clientComboBox.addItem(c);
+        }
     }
 
-    public JButton getAjouterBtn() {
-        return ajouterBtn;
+    public Client getSelectedClient() {
+        return (Client) clientComboBox.getSelectedItem();
     }
 
-    public JTextField getIdField() {
-        return idField;
+    // Récupérer la ligne sélectionnée dans le tableau
+    public int getSelectedReservationRow() {
+        return reservationTable.getSelectedRow();
     }
 
-    public JTextField getNuitsField() {
-        return nuitsField;
+    // Remplir le formulaire à partir d'une réservation (pour modification)
+    public void remplirFormulaire(Reservation r) {
+        if (r == null) return;
+        nuitsField.setText(String.valueOf(r.getNbr_nuits()));
+        debutField.setText(r.getDate_debut().toString());
+        chambreIDField.setText(String.valueOf(r.getChambre().getID_chambre()));
+
+        // Sélectionner le client dans le combo
+        Client client = null;
+        for (int i = 0; i < clientComboBox.getItemCount(); i++) {
+            Client c = clientComboBox.getItemAt(i);
+            if (c.getReservations() != null && c.getReservations().contains(r)) {
+                client = c;
+                break;
+            }
+        }
+        if (client != null) {
+            clientComboBox.setSelectedItem(client);
+        } else {
+            clientComboBox.setSelectedIndex(-1);
+        }
     }
 
-    public JTextField getDebutField() {
-        return debutField;
-    }
-
-    public JTextField getFinField() {
-        return finField;
-    }
-
-    public JTextField getChambreIDField() {
-        return chambreIDField;
-    }
-
+    // Getters pour les champs
+    public JTextField getNuitsField() { return nuitsField; }
+    public JTextField getDebutField() { return debutField; }
+    public JTextField getChambreIDField() { return chambreIDField; }
+    public JButton getAjouterBtn() { return ajouterBtn; }
+    public JButton getModifierBtn() { return modifierBtn; }
+    public JTable getReservationTable() { return reservationTable; }
 
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
+    }
+
+    public void viderChamps() {
+        nuitsField.setText("");
+        debutField.setText("");
+        chambreIDField.setText("");
+        clientComboBox.setSelectedIndex(-1);
     }
 }

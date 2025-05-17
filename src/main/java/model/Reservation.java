@@ -5,16 +5,14 @@ public class Reservation {
     private int ID_reservation;
     private int nbr_nuits;
     private Date date_debut;
-    private Date date_fin;
     private Chambre chambre;
 
     private boolean status = false;
 
-    public Reservation(int ID_reservation, int nbr_nuits, Date date_debut, Date date_fin, Chambre chambre) {
+    public Reservation(int ID_reservation, int nbr_nuits, Date date_debut, Chambre chambre) {
         this.ID_reservation = ID_reservation;
         this.nbr_nuits = nbr_nuits;
         this.date_debut = date_debut;
-        this.date_fin = date_fin;
         this.chambre = chambre;
     }
 
@@ -43,13 +41,6 @@ public class Reservation {
         this.date_debut = date_debut;
     }
 
-    public Date getDate_fin() {
-        return date_fin;
-    }
-
-    public void setDate_fin(Date date_fin) {
-        this.date_fin = date_fin;
-    }
 
 
     public float total_reservation(int nbr_nuit, float prix){

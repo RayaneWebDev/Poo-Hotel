@@ -7,8 +7,16 @@ public class Sejour {
     List<ProduitMinibar> produitsConsommes;
     private Reservation reservation;
 
-    public Sejour(int ID_sejour, Reservation reservation) {
+    public Sejour(int ID_sejour, Reservation reservation, List<ProduitMinibar> produitsSejour1) {
         this.ID_sejour = ID_sejour;
+        this.reservation = reservation;
+        produitsConsommes = produitsSejour1;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+    public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
 

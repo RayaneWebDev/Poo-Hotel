@@ -2,7 +2,8 @@ package controller;
 
 import model.Categorie_Chambre;
 import model.Chambre;
-import view.GestionChambres;
+import view.ChambreView;
+import view.ChambreView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,25 +12,25 @@ import java.util.List;
 
 public class ChambreControleur {
 
-    private final GestionChambres view;
-    private final List<Chambre> chambres;
+    private final ChambreView view;
+    private List<Chambre> chambres;
 
 
-    public ChambreControleur(GestionChambres view) {
+    public ChambreControleur(ChambreView view, List<Chambre> chambres) {
         this.view = view;
-        this.chambres = new ArrayList<>();
+        this.chambres = chambres;
+        chargerChambres();
+    }
+
+    public void loadChambres(List<Chambre> chambres) {
+        this.chambres = new ArrayList<>(chambres);
+        chargerChambres();
     }
 
     public void chargerChambres() {
-        DefaultTableModel model = view.getModel();
-        model.setRowCount(0); // Vider le tableau
+        view.clearTable();
         for (Chambre c : chambres) {
-            model.addRow(new Object[]{
-                    c.getID_chambre(),
-                    c.getCategorie().name(),
-                    c.getPrix(),
-                    convertirEtat(c.getEtat())
-            });
+            view.ajouterChambreDansTable(c);
         }
     }
 

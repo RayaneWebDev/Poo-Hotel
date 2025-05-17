@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel {
@@ -8,10 +9,12 @@ public class Hotel {
     private int note;
     private String adresse;
     private int nbr_chambre;
-    private List<Receptionniste> receptionnistes;
-    private List<Chambre> chambres;
-    private List<ProduitMinibar> produitMinibars;
-    private List<Reservation> reservations;
+    private List<Receptionniste> receptionnistes = new ArrayList<>();
+    private List<Client> clients = new ArrayList<>();
+    private List<Chambre> chambres = new ArrayList<>();
+    private List<ProduitMinibar> produitMinibars = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<>();
+    private List<Sejour> sejours = new ArrayList<>();
 
     public Hotel(int Id_Hotel, String nom_hotel, int note, String adresse, int nbr_chambre,
                  List<Receptionniste> receptionnistes, List<Chambre> chambres) {
@@ -117,6 +120,20 @@ public class Hotel {
         }
     }
 
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public List<Sejour> getSejours() {
+        return sejours;
+    }
+
+    public void setSejours(List<Sejour> sejours) {
+        this.sejours = sejours;
+    }
 
     public void setProduitMinibars(List<ProduitMinibar> produitMinibars) {
         this.produitMinibars = produitMinibars;
@@ -130,6 +147,20 @@ public class Hotel {
     public void supprimerProdMinibar(ProduitMinibar produitMinibar){
         if (produitMinibars != null && produitMinibars.contains(produitMinibar)) {
             produitMinibars.remove(produitMinibar);
+        }
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    public void ajouterClient(Client client) {
+        if (!clients.contains(client)) {
+            clients.add(client);
         }
     }
 

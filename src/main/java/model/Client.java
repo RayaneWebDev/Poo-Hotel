@@ -9,6 +9,7 @@ public class Client extends Personne {
 
     public Client(int ID_user, String nom , String prenom, String tel, String email){
         super(ID_user,nom,prenom,tel,"client");
+        this.id = ID_user+1;
         this.email = email;
     }
     public Client(int ID_user, String nom, String prenom, String tel,String email,
@@ -52,5 +53,10 @@ public class Client extends Personne {
     public String getEmail(){
         return this.email;
     }
+    @Override
+    public String toString() {
+        return prenom + " " + nom;
+    }
+
 
 }

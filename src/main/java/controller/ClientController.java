@@ -1,42 +1,67 @@
-package controller ;
+package controller;
+
 import model.Client;
-import model.Reservation;
+import model.Hotel;
 import view.GestionClientsView;
 
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ClientController {
-    private GestionClientsView view;
-    private ArrayList<Client> clients;
+    private final GestionClientsView view;
+    private final Hotel hotel;
+    private ReservationController reservationController;
 
-    public ClientController(GestionClientsView view) {
-        this.view = view; // Lier la vue au contrôleur
-        this.clients = new ArrayList<>();
-    }
-
-    public void loadClients() {
-        if (view != null) {
-            view.getModel().setRowCount(0); // Clear
-            for (Client c : clients) {
-                view.getModel().addRow(new Object[]{c.getId(), c.getNom(), c.getPrenom(), c.getTel(), c.getEmail()});
-            }
-        }
-    }
-
-    public void ajouterClient() {
-        String nom = view.getNom(), prenom = view.getPrenom(), tel = view.getTelephone(), email = view.getEmail();
-        if (nom.isEmpty() || prenom.isEmpty() || tel.isEmpty() || email.isEmpty()) return;
-        int id = clients.size() + 1;
-        Client c = new Client(id, nom, prenom, tel, email,new ArrayList<Reservation>());
-        clients.add(c);
+    public ClientController(GestionClientsView view, Hotel hotel) {
+        this.view  = view;
+        this.hotel = hotel;
         loadClients();
     }
 
+    public void setReservationController(ReservationController rc) {
+        this.reservationController = rc;
+    }
+
+    public void loadClients() {
+        DefaultTableModel m = view.getModel();
+        m.setRowCount(0);
+        for (Client c : hotel.getClients()) {
+            m.addRow(new Object[]{
+                    c.getId(),
+                    c.getNom(),
+                    c.getPrenom(),
+                    c.getTel(),
+                    c.getEmail()
+            });
+        }
+    }
+
+
+    public void ajouterClient() {
+        String nom    = view.getNom();
+        String prenom = view.getPrenom();
+        String tel    = view.getTelephone();
+        String email  = view.getEmail();
+        if (nom.isEmpty() || prenom.isEmpty() || tel.isEmpty() || email.isEmpty()) return;
+
+        int newId = hotel.getClients().stream()
+                .mapToInt(Client::getId)
+                .max()
+                .orElse(0) + 1;
+        Client c = new Client(newId, nom, prenom, tel, email, new ArrayList<>());
+        c.setId(newId);
+        hotel.ajouterClient(c);
+        loadClients();
+
+        if (reservationController != null) {
+            reservationController.loadClients(hotel.getClients());
+        }
+    }
+
     public void modifierClient() {
-        int selected = view.getTable().getSelectedRow();
-        if (selected == -1) return;
-        Client c = clients.get(selected);
+        int sel = view.getTable().getSelectedRow();
+        if (sel < 0) return;
+        Client c = hotel.getClients().get(sel);
         c.setNom(view.getNom());
         c.setPrenom(view.getPrenom());
         c.setTel(view.getTelephone());
@@ -45,18 +70,22 @@ public class ClientController {
     }
 
     public void supprimerClient() {
-        int selected = view.getTable().getSelectedRow();
-        if (selected == -1) return;
-        clients.remove(selected);
+        int sel = view.getTable().getSelectedRow();
+        if (sel < 0) return;
+        hotel.getClients().remove(sel);
         loadClients();
+        if (reservationController != null) {
+            reservationController.loadClients(hotel.getClients());
+        }
     }
 
     public void rechercherClient() {
-        String nom = view.getNom();
-        view.getModel().setRowCount(0);
-        for (Client c : clients) {
-            if (c.getNom().toLowerCase().contains(nom.toLowerCase())) {
-                view.getModel().addRow(new Object[]{c.getId(), c.getNom(), c.getPrenom(), c.getTel(), c.getEmail()});
+        String filtre = view.getNom().toLowerCase();
+        DefaultTableModel m = view.getModel();
+        m.setRowCount(0);
+        for (Client c : hotel.getClients()) {
+            if (c.getNom().toLowerCase().contains(filtre)) {
+                m.addRow(new Object[]{c.getId(), c.getNom(), c.getPrenom(), c.getTel(), c.getEmail()});
             }
         }
     }

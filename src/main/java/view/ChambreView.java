@@ -1,11 +1,13 @@
 package view;
 
 import controller.ChambreControleur;
+import model.Chambre;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class GestionChambres extends JPanel {
+public class ChambreView extends JPanel {
 
     private JTable chambreTable;
     private DefaultTableModel model;
@@ -13,7 +15,7 @@ public class GestionChambres extends JPanel {
     private JComboBox<String> cbType, cbEtat;
     private ChambreControleur controller;
 
-    public GestionChambres() {
+    public ChambreView() {
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("GESTION DES CHAMBRES", SwingConstants.CENTER);
@@ -49,7 +51,6 @@ public class GestionChambres extends JPanel {
         chambreTable = new JTable(model);
         add(new JScrollPane(chambreTable), BorderLayout.CENTER);
 
-        controller = new ChambreControleur(this);
 
         ajouterBtn.addActionListener(e -> controller.ajouterChambre());
         modifierBtn.addActionListener(e -> controller.modifierChambre());
@@ -67,5 +68,16 @@ public class GestionChambres extends JPanel {
         tfNumero.setText("");
         cbType.setSelectedIndex(0);
         cbEtat.setSelectedIndex(0);
+    }
+    public void clearTable() {
+        model.setRowCount(0);
+    }
+    public void ajouterChambreDansTable(Chambre chambre) {
+        model.addRow(new Object[]{
+                chambre.getID_chambre(),
+                chambre.getCategorie().toString(),
+                chambre.getPrix(),
+                chambre.getEtat()
+        });
     }
 }
